@@ -1,5 +1,6 @@
 package Registration.registration;
 
+import Registration.registration.domain.Member;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
