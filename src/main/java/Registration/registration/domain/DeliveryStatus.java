@@ -1,6 +1,6 @@
 package Registration.registration.domain;
 
-public enum class DeliveryStatus {
+public enum DeliveryStatus {
 
     READY, COMP
 }
