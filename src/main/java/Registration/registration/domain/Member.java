@@ -24,4 +24,19 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return username;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String username) {
+        this.username = username;
+    }
 }
