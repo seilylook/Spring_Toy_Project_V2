@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,6 +37,15 @@ public class MemberRepositoryTest {
 
     @Test(expected = IllegalStateException.class)
     public void 중복_회원_예외()throws Exception {
+        Member member1 = new Member();
+        member1.setName("kim");
 
+        Member member2 = new Member();
+        member2.setName("kim");
+
+        memberService.join(member1);
+        memberService.join(member2);
+
+        fail("예외가 발생");
     }
 }
