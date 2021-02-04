@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class Order {
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
+    private LocalDateTime orderDate;
+
     // 주문 상태는 order, cancel 두가지로 구분하기 위해 enum
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -50,4 +53,39 @@ public class Order {
         delivery.setOrder(this);
     }
 
+    // 주문을 생성한다.
+    // parameter로 받아야 될 것은 회원 정보, 배송정보, 상품 들
+    // order 객체를 생성해주고 order 객체의 메소드들을 통해 회원 배송정보 상품 정보를 저장한다.
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order();
+        order.setMember(member);
+        order.setDelivery(delivery);
+        for(OrderItem orderItem : orderItems) {
+            order.addOrderItem(orderItem);
+        }
+        order.setStatus(OrderStatus.ORDER);
+        order.setOrderDate(LocalDateTime.now());
+        return order;
+    }
+
+    // 취소를 통해 들어오면 배송 정보를 구해온다. delivery status 의 상태가 comp 상태면
+    // 상품이 이미 예약 된 것이기에 취소가 불가능하다.
+    public void cancel() {
+        if(delivery.getStatus() == DeliveryStatus.COMP) {
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+        }
+
+        this.setStatus(OrderStatus.CANCEL);
+        for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }
+    }
+
+    public int getTotalPrice() {
+        int totalPrice =0;
+        for (OrderItem orderItem : orderItems) {
+            totalPrice += orderItem.getOrder().getTotalPrice();
+        }
+        return totalPrice;
+    }
 }

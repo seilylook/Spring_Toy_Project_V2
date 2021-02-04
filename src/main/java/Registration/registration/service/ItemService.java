@@ -11,6 +11,7 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+// 상품 서비스는 단순히 상품 리포지토리에 위임만 하는 클래스
 public class ItemService {
 
     private final ItemRepository itemRepository;
