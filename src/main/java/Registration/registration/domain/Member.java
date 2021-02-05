@@ -34,6 +34,7 @@ public class Member {
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 
@@ -55,6 +56,7 @@ public class Member {
     }
 
     public void setAddress(Address address) {
+
         this.address = address;
     }
 }
