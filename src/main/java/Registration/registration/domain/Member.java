@@ -29,6 +29,7 @@ public class Member {
     }
 
     public String getName() {
+
         return username;
     }
 
@@ -37,6 +38,23 @@ public class Member {
     }
 
     public void setName(String username) {
+
         this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
