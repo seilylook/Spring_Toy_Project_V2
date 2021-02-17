@@ -14,4 +14,10 @@ public class BookForm {
 
     private String author;
     private String isbn;
+
+    public int setPrice() {
+    }
+
+    public int setStockQuantity() {
+    }
 }
